@@ -1,0 +1,33 @@
+# Portfolio — Apache (2.4+). Enable mod_rewrite, mod_headers, mod_deflate, mod_expires as needed.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Optional: force HTTPS in production (uncomment when TLS is configured)
+    # RewriteCond %{HTTPS} !=on
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Compression (text assets)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Browser caching for versioned static paths (adjust if you add cache-busting query params)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType image/svg+xml "access plus 14 days"
+</IfModule>
+
+# Security headers (tune for your CDN / CSP needs)
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Deny direct access to SQL dumps (remove if you serve from a different docroot)
+<FilesMatch "\.(sql)$">
+    Require all denied
+</FilesMatch>
