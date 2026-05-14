@@ -6,7 +6,7 @@ $base = APP_BASE_URL;
     <footer class="site-footer" role="contentinfo">
         <div class="container footer-inner">
             <p class="footer-line">
-                <span class="footer-brand"><?= htmlspecialchars(__('meta_title'), ENT_QUOTES, 'UTF-8') ?></span>
+                <span class="footer-brand"><?= htmlspecialchars(__('site_brand'), ENT_QUOTES, 'UTF-8') ?></span>
                 <span class="footer-dot" aria-hidden="true"></span>
                 <span><?= htmlspecialchars(__('footer_rights'), ENT_QUOTES, 'UTF-8') ?></span>
             </p>

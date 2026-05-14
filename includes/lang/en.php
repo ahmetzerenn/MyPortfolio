@@ -4,6 +4,7 @@ declare(strict_types=1);
 return [
     'meta_title'       => 'Portfolio',
     'meta_description' => 'Software engineer and game developer crafting thoughtful digital experiences.',
+    'site_brand'       => 'AZ',
 
     'nav_home'         => 'Home',
     'nav_about'        => 'About',
@@ -24,8 +25,8 @@ return [
 
     'hero_name'        => 'Ahmet Zeren',
     'hero_role'        => 'Software Engineer & Game Developer',
-    'hero_intro'       => 'I build scalable backend systems and immersive digital experiences.',
-    'hero_intro_secondary' => 'Currently developing a horror game "Midnight Scour" and exploring real-world software architectures.',
+    'hero_intro'       => 'I build scalable backend systems, relational data layers, and immersive digital experiences — shipping production code with the same rigour I apply to smooth gameplay and readable systems.',
+    'hero_intro_secondary' => 'Right now I am on the team behind Midnight Scour, a first-person Unity horror game. In parallel I keep web and API surfaces sharp with PHP, MySQL, and TypeScript, borrowing patterns from internships and real-world architectures.',
     'hero_cta_primary' => 'View My Work',
     'hero_cta_secondary' => 'Contact Me',
 
@@ -118,6 +119,26 @@ return [
     'project_cat_networking' => 'Networking',
     'project_cat_web' => 'Web',
     'project_cat_tools' => 'Tools',
+
+    'home_work_kicker' => 'Beyond the hero',
+    'home_work_title'  => 'More selected work',
+    'home_work_lead'   => 'After the featured game: internships, shipped web work, and tooling — each with a short summary and a full write-up.',
+    'home_work_cta'    => 'Browse all projects',
+
+    'home_story_kicker' => 'At a glance',
+    'home_story_title'  => 'How I build',
+    'home_story_lead'   => 'Industry backend, team game work, and a steady engineering line — the full timeline and skill notes live on About.',
+    'home_story_cta'    => 'Read about me',
+
+    'home_stack_kicker' => 'Stack',
+    'home_stack_title'  => 'Tools I touch every week',
+    'home_stack_lead'   => 'The mix shifts week to week, but this core shows up across coursework, internships, and personal builds.',
+
+    'home_cta_kicker'  => 'Next step',
+    'home_cta_title'   => 'Let us build something deliberate',
+    'home_cta_lead'    => 'Internships, indie teams, marketing sites, or backend-heavy product work — share context and we can chart a clear path.',
+    'home_cta_primary' => 'Start a conversation',
+    'home_cta_secondary' => 'View projects',
 
     'featured_beyond_kicker' => 'Featured spotlight',
     'featured_beyond_title' => 'Midnight Scour',

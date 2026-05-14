@@ -47,7 +47,7 @@ $adminLoginUrl = ($base !== '' ? rtrim($base, '/') : '') . '/admin/login.php';
         <div class="container header-inner">
             <a class="logo" href="<?= htmlspecialchars($base, ENT_QUOTES, 'UTF-8') ?>/index.php">
                 <span class="logo-mark" aria-hidden="true"></span>
-                <span class="logo-text"><?= htmlspecialchars(__('meta_title'), ENT_QUOTES, 'UTF-8') ?></span>
+                <span class="logo-text"><?= htmlspecialchars(__('site_brand'), ENT_QUOTES, 'UTF-8') ?></span>
             </a>
             <nav class="main-nav" aria-label="Primary">
                 <ul>

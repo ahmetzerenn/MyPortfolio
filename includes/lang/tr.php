@@ -4,6 +4,7 @@ declare(strict_types=1);
 return [
     'meta_title'       => 'Portfolyo',
     'meta_description' => 'Kasıtlı dijital deneyimler üreten yazılım mühendisi ve oyun geliştiricisi.',
+    'site_brand'       => 'AZ',
 
     'nav_home'         => 'Ana Sayfa',
     'nav_about'        => 'Hakkımda',
@@ -24,8 +25,8 @@ return [
 
     'hero_name'        => 'Ahmet Zeren',
     'hero_role'        => 'Yazılım Mühendisi & Oyun Geliştiricisi',
-    'hero_intro'       => 'Ölçeklenebilir backend sistemleri ve sürükleyici dijital deneyimler geliştiriyorum.',
-    'hero_intro_secondary' => 'Şu anda "Midnight Scour" adlı bir korku oyunu üzerinde çalışıyor ve gerçek dünya yazılım mimarilerini keşfediyorum.',
+    'hero_intro'       => 'Ölçeklenebilir backend sistemleri, ilişkisel veri katmanları ve sürükleyici dijital deneyimler geliştiriyorum; üretimde kalan kod ile oyun tarafında akıcı kare hızını aynı disiplinle ele alıyorum.',
+    'hero_intro_secondary' => 'Şu anda ekip olarak "Midnight Scour" üzerindeyim — Unity tabanlı birinci şahıs korku oyunu. Aynı zamanda PHP, MySQL ve TypeScript ile web ve API yüzeylerini güçlendiriyor, staj ve açık kaynak dünyasından gerçek dünya mimarilerini projelere taşıyorum.',
     'hero_cta_primary' => 'İşlerime Göz At',
     'hero_cta_secondary' => 'Bana Ulaş',
 
@@ -118,6 +119,26 @@ return [
     'project_cat_networking' => 'Ağ',
     'project_cat_web' => 'Web',
     'project_cat_tools' => 'Araçlar',
+
+    'home_work_kicker' => 'Diğer işler',
+    'home_work_title'  => 'Vitrinin ötesinde',
+    'home_work_lead'   => 'Öne çıkan oyundan sonra; staj, web teslimatları ve araçlar — her biri için kısa özet ve tam sayfa ayrıntı.',
+    'home_work_cta'    => 'Tüm projelere git',
+
+    'home_story_kicker' => 'Kısa yolculuk',
+    'home_story_title'  => 'Nasıl üretiyorum',
+    'home_story_lead'   => 'Endüstride backend, ekipte oyun ve sürekli öğrenen bir mühendislik çizgisi — ayrıntılı zaman çizelgesi ve beceri notları Hakkımda sayfasında.',
+    'home_story_cta'    => 'Hakkımda',
+
+    'home_stack_kicker' => 'Yığın',
+    'home_stack_title'  => 'Sık dokunduğum araçlar',
+    'home_stack_lead'   => 'Haftalık iş yüküme göre değişen ama sürekli geri döndüğüm bir çekirdek — ders, staj ve kişisel projelerde aynı set.',
+
+    'home_cta_kicker'  => 'Bir sonraki adım',
+    'home_cta_title'   => 'Beraber üretelim',
+    'home_cta_lead'    => 'Staj, indie ekip, kurumsal web veya backend ağırlıklı bir iş varsa; bağlamı paylaşın, birlikte net bir yol çizelim.',
+    'home_cta_primary' => 'İletişime geç',
+    'home_cta_secondary' => 'Projeleri incele',
 
     'featured_beyond_kicker' => 'Öne çıkan vitrin',
     'featured_beyond_title' => 'Midnight Scour',

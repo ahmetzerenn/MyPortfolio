@@ -21,9 +21,31 @@ if ($featuredBeyondEmbed === null && $featuredBeyondResolvedUrl !== $featuredBey
     $featuredBeyondEmbed = portfolio_hero_video_embed($featuredBeyondFallbackVideo);
 }
 
+$allPublishedHome = portfolio_fetch_published_projects();
+$homePreviewProjects = [];
+foreach ($allPublishedHome as $_homeProj) {
+    if (!is_array($_homeProj)) {
+        continue;
+    }
+    if ((int) ($_homeProj['id'] ?? 0) === 1) {
+        continue;
+    }
+    $homePreviewProjects[] = $_homeProj;
+}
+$homePreviewProjects = array_slice($homePreviewProjects, 0, 6);
+
+/** @var list<array{label_key:string, title_key:string, text_key:string}> */
+$homeMilestones = [
+    ['label_key' => 'about_ms1_label', 'title_key' => 'about_ms1_title', 'text_key' => 'about_ms1_text'],
+    ['label_key' => 'about_ms2_label', 'title_key' => 'about_ms2_title', 'text_key' => 'about_ms2_text'],
+    ['label_key' => 'about_ms3_label', 'title_key' => 'about_ms3_title', 'text_key' => 'about_ms3_text'],
+];
+
 require_once __DIR__ . '/includes/header.php';
 
 $base = APP_BASE_URL;
+$basePath = $base !== '' ? rtrim($base, '/') : '';
+$placeholderImage = $basePath . '/assets/img/placeholder-project.svg';
 ?>
 
     <main id="main" class="main-content">
@@ -166,6 +188,131 @@ $base = APP_BASE_URL;
                             <a class="btn btn--ghost" href="<?= htmlspecialchars($base, ENT_QUOTES, 'UTF-8') ?>/projects.php"><?= htmlspecialchars(__('featured_beyond_cta_secondary'), ENT_QUOTES, 'UTF-8') ?></a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <?php if ($homePreviewProjects !== []): ?>
+            <section class="page-section home-more-work" aria-labelledby="home-work-heading">
+                <div class="container">
+                    <div class="section-heading section-heading--home-work" data-reveal>
+                        <p class="home-section-eyebrow"><?= htmlspecialchars(__('home_work_kicker'), ENT_QUOTES, 'UTF-8') ?></p>
+                        <h2 id="home-work-heading"><?= htmlspecialchars(__('home_work_title'), ENT_QUOTES, 'UTF-8') ?></h2>
+                        <p class="lead"><?= htmlspecialchars(__('home_work_lead'), ENT_QUOTES, 'UTF-8') ?></p>
+                    </div>
+                    <div class="project-grid project-grid--home">
+                        <?php foreach ($homePreviewProjects as $idx => $proj): ?>
+                            <?php
+                            $pid = (int) ($proj['id'] ?? 0);
+                            if ($pid < 1) {
+                                continue;
+                            }
+                            $slug = isset($proj['category_slug']) && is_string($proj['category_slug']) ? trim($proj['category_slug']) : '';
+                            if ($slug === '') {
+                                $slug = 'general';
+                            }
+                            $imgSrc = portfolio_safe_image_url(
+                                isset($proj['image_url']) && is_string($proj['image_url']) ? $proj['image_url'] : null,
+                                $placeholderImage
+                            );
+                            $pTitle = isset($proj['title']) ? (string) $proj['title'] : '';
+                            $pSummary = isset($proj['summary']) ? (string) $proj['summary'] : '';
+                            $pTag = isset($proj['tag']) && $proj['tag'] !== null ? (string) $proj['tag'] : '';
+                            $detailUrl = $basePath . '/project.php?id=' . $pid;
+                            $indexLabel = str_pad((string) ($idx + 1), 2, '0', STR_PAD_LEFT);
+                            $delayMs = $idx * 50;
+                            ?>
+                            <article
+                                class="project-card"
+                                data-reveal
+                                data-reveal-delay="<?= (int) $delayMs ?>"
+                                data-project-category="<?= htmlspecialchars($slug, ENT_QUOTES, 'UTF-8') ?>"
+                            >
+                                <a class="project-card__media" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8') ?>" tabindex="-1" aria-hidden="true">
+                                    <img
+                                        class="project-card__thumb"
+                                        src="<?= htmlspecialchars($imgSrc, ENT_QUOTES, 'UTF-8') ?>"
+                                        alt="<?= htmlspecialchars($pTitle, ENT_QUOTES, 'UTF-8') ?>"
+                                        width="600"
+                                        height="375"
+                                        loading="lazy"
+                                        decoding="async"
+                                    >
+                                </a>
+                                <span class="project-card__index"><?= htmlspecialchars($indexLabel, ENT_QUOTES, 'UTF-8') ?></span>
+                                <p class="project-card__category"><?= htmlspecialchars(portfolio_category_label($slug), ENT_QUOTES, 'UTF-8') ?></p>
+                                <h3>
+                                    <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($pTitle, ENT_QUOTES, 'UTF-8') ?></a>
+                                </h3>
+                                <p><?= htmlspecialchars($pSummary, ENT_QUOTES, 'UTF-8') ?></p>
+                                <?php if ($pTag !== ''): ?>
+                                    <span class="project-card__tag"><?= htmlspecialchars($pTag, ENT_QUOTES, 'UTF-8') ?></span>
+                                <?php endif; ?>
+                                <p class="project-card__link-wrap">
+                                    <a class="project-card__link" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars(__('projects_view_details'), ENT_QUOTES, 'UTF-8') ?></a>
+                                </p>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+                    <p class="home-more-work__actions" data-reveal>
+                        <a class="btn btn--ghost" href="<?= htmlspecialchars($base, ENT_QUOTES, 'UTF-8') ?>/projects.php"><?= htmlspecialchars(__('home_work_cta'), ENT_QUOTES, 'UTF-8') ?></a>
+                    </p>
+                </div>
+            </section>
+        <?php endif; ?>
+
+        <section class="page-section home-story" aria-labelledby="home-story-heading">
+            <div class="container home-story__grid" data-reveal>
+                <div class="home-story__intro">
+                    <p class="home-section-eyebrow"><?= htmlspecialchars(__('home_story_kicker'), ENT_QUOTES, 'UTF-8') ?></p>
+                    <h2 id="home-story-heading"><?= htmlspecialchars(__('home_story_title'), ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p class="home-story__lead"><?= htmlspecialchars(__('home_story_lead'), ENT_QUOTES, 'UTF-8') ?></p>
+                    <div class="home-story__actions">
+                        <a class="btn btn--primary" href="<?= htmlspecialchars($base, ENT_QUOTES, 'UTF-8') ?>/about.php">
+                            <?= htmlspecialchars(__('home_story_cta'), ENT_QUOTES, 'UTF-8') ?>
+                            <span class="btn__arrow" aria-hidden="true">→</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="home-story__tracks" role="list">
+                    <?php foreach ($homeMilestones as $m): ?>
+                        <article class="home-story__track" role="listitem">
+                            <span class="home-story__track-label"><?= htmlspecialchars(__($m['label_key']), ENT_QUOTES, 'UTF-8') ?></span>
+                            <h3 class="home-story__track-title"><?= htmlspecialchars(__($m['title_key']), ENT_QUOTES, 'UTF-8') ?></h3>
+                            <p class="home-story__track-text"><?= htmlspecialchars(__($m['text_key']), ENT_QUOTES, 'UTF-8') ?></p>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section home-stack" aria-labelledby="home-stack-heading">
+            <div class="container home-stack__inner" data-reveal>
+                <div class="home-stack__head">
+                    <p class="home-section-eyebrow"><?= htmlspecialchars(__('home_stack_kicker'), ENT_QUOTES, 'UTF-8') ?></p>
+                    <h2 id="home-stack-heading"><?= htmlspecialchars(__('home_stack_title'), ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p class="home-stack__lead"><?= htmlspecialchars(__('home_stack_lead'), ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
+                <ul class="home-stack__chips" aria-label="<?= htmlspecialchars(__('home_stack_title'), ENT_QUOTES, 'UTF-8') ?>">
+                    <?php foreach (['TypeScript', 'PHP', 'MySQL', 'C++', 'Unity', 'C#', 'ASP.NET', 'Tailwind CSS', 'Git'] as $chip): ?>
+                        <li><?= htmlspecialchars($chip, ENT_QUOTES, 'UTF-8') ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </section>
+
+        <section class="home-cta-band" aria-labelledby="home-cta-heading">
+            <div class="home-cta-band__backdrop" aria-hidden="true"></div>
+            <div class="container home-cta-band__content" data-reveal>
+                <p class="home-section-eyebrow home-cta-band__eyebrow"><?= htmlspecialchars(__('home_cta_kicker'), ENT_QUOTES, 'UTF-8') ?></p>
+                <h2 id="home-cta-heading" class="home-cta-band__title"><?= htmlspecialchars(__('home_cta_title'), ENT_QUOTES, 'UTF-8') ?></h2>
+                <p class="home-cta-band__lead"><?= htmlspecialchars(__('home_cta_lead'), ENT_QUOTES, 'UTF-8') ?></p>
+                <div class="home-cta-band__actions">
+                    <a class="btn btn--primary" href="<?= htmlspecialchars($base, ENT_QUOTES, 'UTF-8') ?>/contact.php">
+                        <?= htmlspecialchars(__('home_cta_primary'), ENT_QUOTES, 'UTF-8') ?>
+                        <span class="btn__arrow" aria-hidden="true">→</span>
+                    </a>
+                    <a class="btn btn--ghost" href="<?= htmlspecialchars($base, ENT_QUOTES, 'UTF-8') ?>/projects.php"><?= htmlspecialchars(__('home_cta_secondary'), ENT_QUOTES, 'UTF-8') ?></a>
                 </div>
             </div>
         </section>
