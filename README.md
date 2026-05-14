@@ -2,7 +2,7 @@
 
 Bu depo, **çift dil (İngilizce / Türkçe)** destekleyen, **MySQL** ile veri tutan ve **yönetim paneli** içeren bir portföy uygulamasıdır. Halka açık sayfalar, iletişim formu, projelerin AJAX ile listelenmesi ve admin tarafında proje yönetimi tek bir PHP projesinde toplanmıştır.
 
-**Bu belge**, projeyi derste veya teslimde anlatırken hangi parçanın ne işe yaradığını hızlıca göstermen için düzenlenmiştir.
+**Bu belge**, kurulum, mimari ve dosya düzenini tek yerden görmek için özetlenmiştir.
 
 ---
 
@@ -10,14 +10,14 @@ Bu depo, **çift dil (İngilizce / Türkçe)** destekleyen, **MySQL** ile veri t
 
 1. [Özet: ne var, nasıl çalışıyor?](#1-özet-ne-var-nasıl-çalışıyor)
 2. [Teknik gereksinimler](#2-teknik-gereksinimler)
-3. [Mimari (hocaya anlatım)](#3-mimari-hocaya-anlatım)
+3. [Mimari](#3-mimari)
 4. [Dosya / klasör haritası](#4-dosya--klasör-haritası)
 5. [Veritabanı: hangi SQL dosyası ne zaman?](#5-veritabanı-hangi-sql-dosyası-ne-zaman)
 6. [Çoklu dil (EN / TR)](#6-çoklu-dil-en--tr)
 7. [Güvenlik](#7-güvenlik)
 8. [Yerel kurulum (kısa)](#8-yerel-kurulum-kısa)
 9. [Canlıya alma notları](#9-canlıya-alma-notları)
-10. [Demo kontrol listesi](#10-demo-kontrol-listesi)
+10. [Kontrol listesi](#10-kontrol-listesi)
 11. [Lisans](#11-lisans)
 
 ---
@@ -26,13 +26,13 @@ Bu depo, **çift dil (İngilizce / Türkçe)** destekleyen, **MySQL** ile veri t
 
 | Katman | İçerik |
 |--------|--------|
-| **Sunum (front)** | Ana sayfa, hakkında, proje listesi (filtre + iskelet yükleme), proje detayı, iletişim formu (tercihen AJAX; yoksa klasik gönderim). |
+| **Sunum (front)** | **Ana sayfa:** hero, öne çıkan proje vitrini (ör. video), veritabanından SSR ile diğer yayınlı projeler (vitrindeki proje hariç), kısa hikâye / yığın özeti, alt CTA. **Diğer:** hakkında, proje listesi (filtre + iskelet + `fetch`), proje detayı, iletişim (tercihen AJAX). |
 | **Veri** | `projects` ve `messages` tabloları; PDO ile **hazırlanmış ifadeler** (prepared statements). |
 | **API** | Projeler için JSON (`api/projects.php`), dil tercihi (`api/set-language.php`), isteğe bağlı sağlık kontrolü (`api/health.php`). |
 | **Admin** | Oturum tabanlı giriş, proje ekleme/düzenleme/silme, iletişim mesajlarını listeleme; formlarda CSRF. |
 | **Arayüz** | Vanilla JS (framework yok), açık/koyu tema, `prefers-reduced-motion` desteği. |
 
-Akış özeti: tarayıcı genelde **PHP sayfaları** üzerinden HTML alır; proje listesi sayfası projeleri **`fetch` ile `api/projects.php`** üzerinden JSON olarak çeker ve kartları istemci tarafında üretir.
+Akış özeti: tarayıcı genelde **PHP sayfaları** üzerinden HTML alır. **Ana sayfadaki** ek proje kartları sunucuda `portfolio_repository` ile doldurulur. **Proje listesi** sayfası kartları **`fetch` ile `api/projects.php`** JSON’undan üretir.
 
 ---
 
@@ -44,7 +44,7 @@ Akış özeti: tarayıcı genelde **PHP sayfaları** üzerinden HTML alır; proj
 
 ---
 
-## 3. Mimari (hocaya anlatım)
+## 3. Mimari
 
 ```text
 [Ziyaretçi] → Web sunucusu → index.php, about.php, … (includes/bootstrap.php: oturum, CSRF, dil)
@@ -65,6 +65,7 @@ Akış özeti: tarayıcı genelde **PHP sayfaları** üzerinden HTML alır; proj
 | Yol | Rol |
 |-----|-----|
 | `index.php`, `about.php`, `projects.php`, `contact.php`, `project.php` | Kamuya açık sayfalar |
+| `includes/contact_handler.php` | `contact.php` doğrulama ve kayıt; istek JSON ise JSON yanıt |
 | `api/projects.php` | Yayınlanmış projeleri JSON döndürür (liste + filtre için) |
 | `api/set-language.php` | POST ile dil + çerez/oturum (CSRF ile) |
 | `api/health.php` | JSON sağlık kontrolü (ör. `db: true` bağlantı testi); arayüzde menü linki yoktur |
@@ -73,7 +74,9 @@ Akış özeti: tarayıcı genelde **PHP sayfaları** üzerinden HTML alır; proj
 | `includes/config.php` | `APP_BASE_URL`, veritabanı sabitleri, varsayılan dil |
 | `includes/lang.php`, `includes/lang/en.php`, `includes/lang/tr.php` | Çeviri anahtarları (`__()` ile) |
 | `includes/portfolio_repository.php` | Projeleri okuma, iletişim kaydı, Türkçe için DB üstüne yerelleştirme katmanı |
-| `assets/css/`, `assets/js/` | Stil ve betikler |
+| `assets/css/main.css` | Genel arayüz stilleri |
+| `assets/js/main.js` | Tema, scroll reveal, proje listesi AJAX, iletişim formu AJAX, proje detay TOC |
+| `assets/js/i18n.js` | Dil seçimi → `POST /api/set-language.php` |
 | `sql/` | Şema, tam dışa aktarım, paylaşımlı hosting importu, migration dosyaları |
 | `.htaccess` | Apache: sıkıştırma, önbellek başlıkları, `*.sql` dosyalarına doğrudan erişimi engelleme |
 
@@ -88,9 +91,9 @@ Aşağıdaki tablo, **sıfır kurulum** ile **mevcut veritabanını güncelleme*
 | **`sql/portfolio_export.sql`** | En pratik yol: veritabanı + tablolar + örnek projeler + (genelde) admin kullanıcı tek seferde. Yerel veya sunucuda “projeyi ayağa kaldır” demek için uygundur. |
 | **`sql/schema.sql`** + **`sql/seed_admin.sql`** | Önce boş şema, sonra sadece admin kullanıcı; proje verisini kendin ekleyeceksen veya export yerine parça parça kuracaksan. |
 | **`sql/portfolio_import_shared_hosting.sql`** | Paylaşımlı hosting: `CREATE DATABASE` yetkisi yoksa; phpMyAdmin vb. ile mevcut veritabanına içe aktarım için yorumlarda yönlendirilir. |
-| **`sql/migration_002` … `migration_005`** | **Zaman içinde** şemayı veya örnek veriyi güncellemek için yazılmış adımlar. **Sıfırdan sadece `portfolio_export.sql` kullanıyorsan bu dosyaları çalıştırmana gerek yoktur**; eski bir kurulumu güncelliyorsan sırayla uygulanırlar. |
+| **`sql/migration_002_project_dynamic.sql`**, **`sql/migration_003_beyond_reach_colins_projects.sql`**, **`sql/migration_004_bta_dijital_project.sql`**, **`sql/migration_005_project_detail_sections.sql`** | Şema veya örnek veriyi **zaman içinde** güncellemek için. **Sıfırdan yalnızca `portfolio_export.sql` kullanıyorsan çalıştırmana gerek yoktur**; eski bir kurulumu güncelliyorsan tarih / içerik sırasına göre uygulanır. |
 
-Özet cümle hocaya: *“Tam kurulum için export; parça parça veya sadece şema için schema + seed; paylaşımlı hosting için import varyantı; migration’lar geçiş geçmişi.”*
+**Kısa özet:** Tam kurulum → `portfolio_export.sql`. Parça parça → `schema.sql` + `seed_admin.sql`. Paylaşımlı hosting → `portfolio_import_shared_hosting.sql`. Migration dosyaları → mevcut veritabanı geçişleri.
 
 ---
 
@@ -173,7 +176,7 @@ location / {
 location ~ \.php$ {
     include fastcgi_params;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+    fastcgi_pass unix:/run/php/php8.2-fpm.sock;  # Ortamdaki PHP sürümüne göre yolu güncelle
 }
 
 location ~* \.(sql)$ {
@@ -192,15 +195,16 @@ location ~* \.(sql)$ {
 
 ---
 
-## 10. Demo kontrol listesi
+## 10. Kontrol listesi
 
-Sunumu veya teslimi gösterirken sırayla kontrol edebilirsin:
+Dağıtım veya güncellemeden sonra kabaca şu sırayla doğrulayabilirsin:
 
-1. **`/api/health.php`** — JSON’da `"ok": true` ve veritabanı bağlıysa `"db": true`.
-2. **`/projects.php`** — Önce iskelet, sonra kartlar; geliştirici araçlarında **`/api/projects.php`** isteği.
-3. **`/contact.php`** — Gönderim ve başarı geri bildirimi (tercihen sayfa yenilenmeden).
-4. **Dil** — EN ↔ TR geçişi; başlık ve sabit metinlerin değişmesi; proje metinlerinin TR’de yerelleşmiş görünmesi.
-5. **`/admin`** — Giriş, proje ekle/düzenle/sil, public listede güncel içerik.
+1. **`/` (ana sayfa)** — Hero, vitrin, en az iki yayınlı proje varsa vitrin dışı kartların gelmesi, hikâye / yığın / alt CTA.
+2. **`/api/health.php`** — JSON’da `"ok": true` ve veritabanı bağlıysa `"db": true`.
+3. **`/projects.php`** — Önce iskelet, sonra kartlar; geliştirici araçlarında **`/api/projects.php`** isteği.
+4. **`/contact.php`** — Gönderim ve başarı geri bildirimi (tercihen sayfa yenilenmeden).
+5. **Dil** — EN ↔ TR; sabit metinler ve (bilinen id’ler için) proje özetlerinin TR yerelleştirmesi.
+6. **`/admin/login.php`** — Giriş, proje ekle/düzenle/sil, public listede güncel içerik.
 
 ---
 
