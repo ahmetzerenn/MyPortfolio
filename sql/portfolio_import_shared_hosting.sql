@@ -1,16 +1,9 @@
--- Self-contained export: database, schema, and sample rows.
--- Import: mysql -u root -p < sql/portfolio_export.sql
--- For a clean re-import on an existing DB, drop tables or the database first.
--- Shared hosting (no CREATE DATABASE permission): use sql/portfolio_import_shared_hosting.sql in phpMyAdmin.
+-- Shared hosting / phpMyAdmin import (InfinityFree, 000webhost, etc.).
+-- No CREATE DATABASE or USE: select your existing database in phpMyAdmin, then Import this file.
+-- Full local setup with a new database: use sql/portfolio_export.sql instead.
 
 SET NAMES utf8mb4;
 SET time_zone = '+00:00';
-
-CREATE DATABASE IF NOT EXISTS portfolio_db
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_unicode_ci;
-
-USE portfolio_db;
 
 CREATE TABLE IF NOT EXISTS site_settings (
     `key` VARCHAR(64) NOT NULL PRIMARY KEY,

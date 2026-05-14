@@ -6,6 +6,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/database.php';
+require_once __DIR__ . '/lang.php';
 
 /**
  * @param mixed $raw JSON string or null from DB
@@ -118,6 +119,55 @@ function portfolio_normalize_project_row(array $row): array
 {
     $row['tech_stack'] = portfolio_decode_tech_stack($row['tech_stack'] ?? null);
     $row['challenges_solutions'] = portfolio_decode_challenges_solutions($row['challenges_solutions'] ?? null);
+    return portfolio_apply_locale_project_overlay($row);
+}
+
+/**
+ * When the active language is Turkish, overlay known project IDs with copy from lang/tr.php
+ * (DB seed text is English-only).
+ */
+function portfolio_apply_locale_project_overlay(array $row): array
+{
+    if (!function_exists('current_lang') || current_lang() !== 'tr' || !function_exists('__')) {
+        return $row;
+    }
+
+    $id = isset($row['id']) ? (int) $row['id'] : 0;
+    $prefixes = [
+        1 => 'proj_a_',
+        2 => 'proj_b_',
+        3 => 'proj_c_',
+    ];
+    if (!isset($prefixes[$id])) {
+        return $row;
+    }
+    $p = $prefixes[$id];
+
+    $pick = static function (string $key) use ($p): ?string {
+        $full = $p . $key;
+        $v = __($full);
+        return $v !== $full ? $v : null;
+    };
+
+    foreach (['title', 'summary', 'description', 'my_role', 'tag'] as $field) {
+        $mapKey = match ($field) {
+            'summary' => 'desc',
+            default   => $field,
+        };
+        $text = $pick($mapKey);
+        if ($text !== null && $text !== '') {
+            $row[$field] = $text;
+        }
+    }
+
+    $chJson = $pick('challenges_json');
+    if ($chJson !== null && $chJson !== '') {
+        $decoded = portfolio_decode_challenges_solutions($chJson);
+        if ($decoded !== []) {
+            $row['challenges_solutions'] = $decoded;
+        }
+    }
+
     return $row;
 }
 

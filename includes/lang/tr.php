@@ -14,6 +14,14 @@ return [
 
     'admin_back_home'  => '← Ana sayfa',
 
+    'admin_login_page_title' => 'Yönetici girişi',
+    'admin_login_heading'    => 'Yönetici girişi',
+    'admin_login_username'   => 'Kullanıcı adı',
+    'admin_login_password'   => 'Parola',
+    'admin_login_submit'     => 'Giriş yap',
+    'admin_login_error_csrf' => 'Oturum süresi doldu. Sayfayı yenileyip tekrar deneyin.',
+    'admin_login_error_invalid' => 'Kullanıcı adı veya parola hatalı.',
+
     'hero_name'        => 'Ahmet Zeren',
     'hero_role'        => 'Yazılım Mühendisi & Oyun Geliştiricisi',
     'hero_intro'       => 'Ölçeklenebilir backend sistemleri ve sürükleyici dijital deneyimler geliştiriyorum.',
@@ -41,18 +49,35 @@ return [
     'theme_to_light'   => 'Açık temaya geç',
     'theme_to_dark'    => 'Koyu temaya geç',
 
-    'about_now'        => 'Şu an',
-    'about_section_title' => 'Profesyonel özet',
+    'about_section_title' => 'Nasıl üretiyorum',
     'about_title'      => 'Hakkımda',
-    'about_lead'       => 'Ben Ahmet Zeren, Haliç Üniversitesi Yazılım Mühendisliği öğrencisiyim ve özellikle backend geliştirme ile gerçek dünya sistemleri üzerine odaklanıyorum.',
-    'about_p1'         => 'Colins\'te yaptığım yazılım stajı sırasında ASP.NET kullanarak backend projelerinde görev aldım ve SQL tabanlı veri yönetimi konusunda deneyim kazandım. Bu süreç, ölçeklenebilir ve sürdürülebilir sistemlerin nasıl geliştirildiğini anlamamı sağladı.',
-    'about_p2'         => 'Şu anda ekip olarak Unity ile "Midnight Scour" adlı bir korku oyunu geliştiriyoruz. Bu proje sayesinde yazılım mühendisliği ile oyun geliştirmeyi birleştirerek hem teknik hem de yaratıcı alanlarda kendimi geliştiriyorum. Oyunun Steam üzerinden yayınlanması planlanıyor.',
-    'about_p3'         => 'Verimli sistemler geliştirmek, karmaşık problemleri çözmek ve hem web hem de oyun geliştirme alanında kendimi sürekli geliştirmek benim en büyük motivasyonum.',
+    'about_lead'       => 'Ben Ahmet Zeren; Haliç Üniversitesi Yazılım Mühendisliği öğrencisiyim. Baskı altında bile anlaşılır kalan sistemlere önem veriyorum — ister SQL destekli bir API olsun, ister akıcı kalması gereken bir korku sahnesi.',
 
-    'about_skills_title'   => 'Teknik özet',
-    'about_skills_caption' => 'Dersler, staj ve kişisel projelerde sık kullandığım teknolojiler.',
-    'about_skills_col_skill' => 'Beceri',
-    'about_skills_col_notes' => 'Tipik kullanım',
+    'about_timeline_aria' => 'Staj, oyun ve eğitimden öne çıkanlar',
+
+    'about_ms1_label'  => 'Sektör',
+    'about_ms1_title'  => 'Colins stajı',
+    'about_ms1_text'   => 'ASP.NET ve SQL ile backend tarafında çalıştım; güvenilirlik ve veri bütünlüğünün gerçekten önemli olduğu özellikler üzerinde yer aldım.',
+
+    'about_ms2_label'  => 'Ekip oyunu',
+    'about_ms2_title'  => 'Midnight Scour',
+    'about_ms2_text'   => 'Unity ile geliştirilen korku oyunu; oyun mekaniği, araçlar ve planlanan Steam yayınına giden iterasyon üzerinde çalışıyorum.',
+
+    'about_ms3_label'  => 'Sürekli',
+    'about_ms3_title'  => 'Mühendislik bakışı',
+    'about_ms3_text'   => 'Hem net sunucu tasarımını hem de anlık, ifade gücü yüksek deneyimleri beslemeye devam ediyorum.',
+
+    'about_card_now_title'   => 'Şu an',
+    'about_card_now_text'    => 'Ekiple Midnight Scour üzerindeyken bir yandan PHP, MySQL ve TypeScript ile web backend tarafını da güçlendiriyorum.',
+
+    'about_card_focus_title' => 'Parladığım yerler',
+    'about_card_focus_text'  => 'API düşüncesi, ilişkisel modelleme ve hem performansın hem okunabilirliğin kritik olduğu oyunleşmiş kod.',
+
+    'about_card_collab_title' => 'İş birliği',
+    'about_card_collab_text'  => 'Staj, indie ekipler ve backend ağırlıklı web işleri için açığım — İletişim’den ne inşa ettiğinizi bir cümleyle yazın.',
+
+    'about_skills_title'   => 'Sık uzandığım araçlar',
+    'about_skills_caption' => 'Ders, staj ve kişisel deneylerde aynı yığın — haftada en çok hangilerinin öne çıktığına yakın bir sırayla.',
     'about_skills_ts'    => 'Tipli arayüz ve geliştirici araçları.',
     'about_skills_php'   => 'Sunucu tarafı mantık — bu portfolyo dahil.',
     'about_skills_mysql' => 'İlişkisel modelleme, sorgular ve kalıcılık.',
@@ -109,7 +134,7 @@ return [
     'featured_beyond_cta' => 'Tam özeti oku',
     'featured_beyond_cta_secondary' => 'Tüm projeler',
     'featured_beyond_preview_aria' => 'Midnight Scour için stilize animasyonlu önizleme',
-    'featured_beyond_preview_hint' => 'Üstte YouTube fragmanı — videoyu yönetimden (Midnight Scour, proje #1) değiştirebilirsiniz.',
+    'featured_beyond_preview_hint' => 'Midnight Scour - Demo Fragmanı',
 
     'proj_a_title'     => 'Midnight Scour',
     'proj_a_desc'      => 'Midnight Scour, ekip projesi kapsamında Unity ile geliştirilen bir korku oyunudur. Oyun; atmosfer, gerilim ve sürükleyici hikâye anlatımına odaklanır.',
@@ -123,14 +148,35 @@ return [
     'proj_c_desc'      => 'Büyüme odaklı bir dijital ajans için uçtan uca üretim sitesi: strateji odaklı mesajlar, hizmet sayfaları, SSS ve dönüşüm hunileri — hızlı, duyarlı bir deneyim olarak yayında.',
     'proj_c_tag'       => 'Pazarlama sitesi · Tam geliştirme',
 
+    'proj_a_description' => "Midnight Scour, ekip projesi kapsamında Unity ile geliştirilen bir korku oyunudur. Oyun; atmosfer, gerilim ve sürükleyici hikâye anlatımına odaklanır.\n\nProjede teknik tarafa katkı sağlıyorum: çekirdek mekanikler ve sistem mantığı üzerinde çalışırken ekiple birlikte tutarlı bir deneyim oluşturmayı hedefliyorum.\n\nOyun şu anda geliştirme aşamasında ve Steam üzerinden yayınlanması planlanıyor.",
+    'proj_a_my_role'     => 'Oyun oynanışı sistemleri, etkileşim mantığı ve performans odaklı iterasyon — sanat ve tasarımla iş birliği yaparak mekaniğin baskı altında bile okunaklı kalmasını sağlıyorum.',
+    'proj_a_challenges_json' => '[{"challenge":"Akıcı kare hızını düşürmeden gerilimi sürdürmek","solution":"Profil çıkarma geçişleri, mantıklı LOD tercihleri ve aşamalı karmaşıklık; böylece orta segment donanımda bile korku anları keskin kalıyor."},{"challenge":"Sahneler arasında tutarlı bir etkileşim dili","solution":"Paylaşılan etkileşim sözleşmeleri ve tahmin edilebilir oyuncu geri bildirim döngüleri — tüm ekibin üzerine ekleyebileceği bir yapı."}]',
+
+    'proj_b_description' => "Colins'te yazılım stajım sırasında ASP.NET ile backend geliştirme üzerinde çalıştım. Veri odaklı sistemlerin kurulması ve iyileştirilmesinde yer aldım ve SQL veritabanlarıyla pratik deneyim kazandım.\n\nBu deneyim; sistem mimarisi, veritabanı tasarımı ve performans değerlendirmeleri de dahil olmak üzere gerçek dünya yazılım geliştirmesine dair anlayışımı güçlendirdi.",
+    'proj_b_my_role'     => 'ASP.NET servislerinde backend özellikleri: veri erişim desenleri, SQL iyileştirme ve kıdemli geliştiricilerle birlikte değişiklikleri canlıya taşıma.',
+    'proj_b_challenges_json' => '[{"challenge":"İş kurallarını güvenilir sorgulara dökmek","solution":"Mentorlarımla birlikte kısıtları SQL’de modellemeyi ve servisleri test edilebilir, gözlemlenebilir tutmayı öğrendim."}]',
+
+    'proj_c_description' => "https://btadijital.com/ adresini baştan sona tasarlayıp geliştirdim: bilgi mimarisi, arayüz, ön uç uygulaması ve dönüşüm odaklı kalıpların (strateji çağrıları, hizmet özetleri, sosyal kanıt ve SSS) entegrasyonu.\n\nSite; ölçülebilir talep ve sistematik büyüme ekseninde BTA Dijital’in konumlandırmasını anlatıyor; gösteriş metrikleri yerine net iletişim yolları ve ücretsiz strateji analizi teklifi sunuyor.\n\nDuyarlı yerleşim, okunabilir tipografi ve performans bilincine sahip teslimat ile pazarlama anlatısının gerçek cihazlarda hızlı ve erişilebilir kalması hedeflendi.",
+    'proj_c_my_role'     => 'Solo üretim: bilgi mimarisi, görsel tasarım, duyarlı ön yüz, içerik yapısı ve pazarlama odaklı bir lansman için performans bilincine sahip teslimat.',
+    'proj_c_challenges_json' => '[{"challenge":"Hizmetleri anlatırken ziyaretçiyi metne boğmamak","solution":"Modüler bölüm ritmi, taranabilir başlıklar ve ajans hunisine göre tekrarlanan yüksek niyetli çağrı-eylem düğmeleri."},{"challenge":"Pazarlama anlatısını mobilde de hızlı tutmak","solution":"Sade varlıklar, öngörülebilir layout kaymalarından kaçınma ve gerçek cihazlarda duyarlılığı sürdürmek için pragmatik CSS."}]',
+
     'contact_title'    => 'İletişim',
-    'contact_lead'     => 'Takımınızı, zaman çizelgesini ve “bitti”nin ne anlama geldiğini yazın. Genelde iki iş günü içinde dönüş yaparım.',
+    'contact_form_heading' => 'Mesaj gönderin',
+    'contact_lead'     => 'Yararlı bir yanıt için bağlam verin — ekip, yığın, zaman çizelgesi ve sizin için iyi bir sonucun neye benzediği.',
     'contact_name'     => 'Ad',
     'contact_email'    => 'E-posta',
     'contact_message'  => 'Mesaj',
     'contact_send'     => 'Gönder',
     'contact_sending'  => 'Gönderiliyor…',
-    'contact_note'     => 'Mesajlar veritabanında güvenli şekilde saklanır. İsterseniz sonra e-posta bildirimi de ekleyebilirsiniz.',
+    'contact_aside_title' => 'Yazmadan önce',
+    'contact_response_label' => 'Yanıt süresi',
+    'contact_response_value' => 'İki iş günü içinde',
+    'contact_include_title' => 'Eklemeniz iyi olur',
+    'contact_tip_1'    => 'Ne üzerinde çalıştığınız ve varsa yığın veya teknik kısıtlar.',
+    'contact_tip_2'    => 'Varsa kabaca zaman çizelgesi veya aciliyet.',
+    'contact_tip_3'    => 'Net bir talep — geri bildirim, iş birliği, staj veya işe alım.',
+    'contact_projects_cta' => 'Seçili işlere göz at',
+    'contact_note'     => 'Mesajlar bu sitede HTTPS üzerinden veritabanında saklanır. Anında uyarı isterseniz e-posta bildirimi sonra eklenebilir.',
     'contact_success'  => 'Teşekkürler — mesajınız alındı.',
     'contact_error_csrf' => 'Oturumunuzun süresi doldu. Sayfayı yenileyip tekrar deneyin.',
     'contact_error_validation' => 'Lütfen ad, e-posta ve mesajı kontrol edip tekrar deneyin.',

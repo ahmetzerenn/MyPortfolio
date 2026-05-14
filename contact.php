@@ -49,12 +49,13 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         </header>
 
-        <section class="page-section">
+        <section class="page-section contact-page-section" aria-labelledby="contact-form-heading">
             <div class="container contact-layout">
-                <div data-reveal>
-                    <div class="section-heading">
-                        <p class="lead"><?= htmlspecialchars(__('contact_lead'), ENT_QUOTES, 'UTF-8') ?></p>
-                    </div>
+                <div class="contact-primary" data-reveal>
+                    <header class="contact-intro">
+                        <h2 id="contact-form-heading" class="contact-intro__title"><?= htmlspecialchars(__('contact_form_heading'), ENT_QUOTES, 'UTF-8') ?></h2>
+                        <p class="contact-intro__lead"><?= htmlspecialchars(__('contact_lead'), ENT_QUOTES, 'UTF-8') ?></p>
+                    </header>
                     <?php if (is_array($contactFlash) && isset($contactFlash['type'], $contactFlash['key']) && is_string($contactFlash['key'])): ?>
                         <?php
                         $flashClass = $contactFlash['type'] === 'success' ? 'form-flash form-flash--success' : 'form-flash form-flash--error';
@@ -90,8 +91,23 @@ require_once __DIR__ . '/includes/header.php';
                         <button type="submit" class="btn btn--primary" data-contact-submit data-sending-label="<?= htmlspecialchars(__('contact_sending'), ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars(__('contact_send'), ENT_QUOTES, 'UTF-8') ?></button>
                     </form>
                 </div>
-                <aside class="contact-aside" data-reveal>
-                    <p><?= htmlspecialchars(__('contact_note'), ENT_QUOTES, 'UTF-8') ?></p>
+                <?php
+                $projectsHref = (APP_BASE_URL !== '' ? rtrim(APP_BASE_URL, '/') : '') . '/projects.php';
+                ?>
+                <aside class="contact-aside" data-reveal aria-labelledby="contact-aside-title">
+                    <h2 id="contact-aside-title" class="contact-aside__title"><?= htmlspecialchars(__('contact_aside_title'), ENT_QUOTES, 'UTF-8') ?></h2>
+                    <div class="contact-aside__badge">
+                        <span class="contact-aside__badge-label"><?= htmlspecialchars(__('contact_response_label'), ENT_QUOTES, 'UTF-8') ?></span>
+                        <span class="contact-aside__badge-value"><?= htmlspecialchars(__('contact_response_value'), ENT_QUOTES, 'UTF-8') ?></span>
+                    </div>
+                    <h3 class="contact-aside__sub"><?= htmlspecialchars(__('contact_include_title'), ENT_QUOTES, 'UTF-8') ?></h3>
+                    <ul class="contact-aside__tips">
+                        <li><?= htmlspecialchars(__('contact_tip_1'), ENT_QUOTES, 'UTF-8') ?></li>
+                        <li><?= htmlspecialchars(__('contact_tip_2'), ENT_QUOTES, 'UTF-8') ?></li>
+                        <li><?= htmlspecialchars(__('contact_tip_3'), ENT_QUOTES, 'UTF-8') ?></li>
+                    </ul>
+                    <p class="contact-aside__note"><?= htmlspecialchars(__('contact_note'), ENT_QUOTES, 'UTF-8') ?></p>
+                    <a class="contact-aside__link" href="<?= htmlspecialchars($projectsHref, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars(__('contact_projects_cta'), ENT_QUOTES, 'UTF-8') ?></a>
                 </aside>
             </div>
         </section>
