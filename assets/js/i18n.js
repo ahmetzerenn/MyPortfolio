@@ -18,16 +18,6 @@
         return base + path;
     }
 
-    function setActiveButtons(root, lang) {
-        var buttons = root.querySelectorAll('.lang-btn[data-lang]');
-        buttons.forEach(function (btn) {
-            var code = btn.getAttribute('data-lang');
-            var active = code === lang;
-            btn.classList.toggle('is-active', active);
-            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
-    }
-
     function init(root) {
         if (!root) return;
 
@@ -59,14 +49,7 @@
                         return { ok: false };
                     });
                 })
-                .then(function (data) {
-                    if (data && data.ok) {
-                        var url = new URL(window.location.href);
-                        url.searchParams.set('lang', lang);
-                        window.location.assign(url.toString());
-                        return;
-                    }
-                    setActiveButtons(root, lang);
+                .then(function () {
                     var url = new URL(window.location.href);
                     url.searchParams.set('lang', lang);
                     window.location.assign(url.toString());

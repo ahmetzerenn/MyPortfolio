@@ -136,18 +136,6 @@ return [
     'featured_beyond_preview_aria' => 'Stylized animated preview for Midnight Scour',
     'featured_beyond_preview_hint' => 'Midnight Scour - Demo Trailer',
 
-    'proj_a_title'     => 'Midnight Scour',
-    'proj_a_desc'      => 'Midnight Scour is a horror game developed with Unity as part of a team project. The game focuses on atmosphere, tension, and immersive storytelling.',
-    'proj_a_tag'       => 'Horror · Unity · Steam',
-
-    'proj_b_title'     => 'Colins Internship',
-    'proj_b_desc'      => 'During my internship at Colins, I worked on backend development using ASP.NET. I was involved in building and improving data-driven systems and gained practical experience with SQL databases.',
-    'proj_b_tag'       => 'ASP.NET · SQL · Internship',
-
-    'proj_c_title'     => 'BTA Dijital — Corporate website',
-    'proj_c_desc'      => 'End-to-end production website for a growth-focused digital agency: strategy-led messaging, service pages, FAQ, and lead funnels — shipped as a fast, responsive experience.',
-    'proj_c_tag'       => 'Marketing site · Full build',
-
     'contact_title'    => 'Contact',
     'contact_form_heading' => 'Send a message',
     'contact_lead'     => 'Share enough context that I can reply with something useful — team, stack, timeline, and what a good outcome looks like on your side.',
