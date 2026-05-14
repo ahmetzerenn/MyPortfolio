@@ -8,6 +8,12 @@ require_once __DIR__ . '/database.php';
 
 const ADMIN_LOGIN_HINT_COOKIE = 'portfolio_admin_login_hint';
 
+/** Minimum length for a new admin password (bytes / single-byte chars). */
+const ADMIN_PASSWORD_MIN_LENGTH = 10;
+
+/** bcrypt effectively uses the first 72 bytes; keep the limit explicit. */
+const ADMIN_PASSWORD_MAX_LENGTH = 72;
+
 /**
  * Optional convenience cookie: last successful admin username (non-secret).
  */
@@ -150,6 +156,67 @@ function admin_logout(): void
 {
     admin_clear_login_session();
     session_regenerate_id(true);
+}
+
+/**
+ * Update the signed-in admin user's password after verifying the current one.
+ *
+ * @return string|null Translation key on failure, null on success.
+ */
+function admin_change_password(int $userId, string $currentPassword, string $newPassword, string $confirmPassword): ?string
+{
+    if ($userId < 1) {
+        return 'admin_password_error_session';
+    }
+
+    if ($newPassword !== $confirmPassword) {
+        return 'admin_password_error_mismatch';
+    }
+
+    $len = strlen($newPassword);
+    if ($len < ADMIN_PASSWORD_MIN_LENGTH) {
+        return 'admin_password_error_short';
+    }
+    if ($len > ADMIN_PASSWORD_MAX_LENGTH) {
+        return 'admin_password_error_long';
+    }
+
+    $pdo = db();
+    if ($pdo === null) {
+        return 'admin_password_error_db';
+    }
+
+    try {
+        $stmt = $pdo->prepare(
+            'SELECT password_hash FROM admin_users WHERE id = :id LIMIT 1'
+        );
+        $stmt->execute([':id' => $userId]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!is_array($row)) {
+            return 'admin_password_error_current';
+        }
+        $hash = $row['password_hash'] ?? '';
+        if (!is_string($hash) || $hash === '' || !password_verify($currentPassword, $hash)) {
+            return 'admin_password_error_current';
+        }
+
+        $newHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        if ($newHash === false) {
+            return 'admin_password_error_db';
+        }
+
+        $upd = $pdo->prepare('UPDATE admin_users SET password_hash = :h WHERE id = :id LIMIT 1');
+        $upd->execute([':h' => $newHash, ':id' => $userId]);
+        if ($upd->rowCount() !== 1) {
+            return 'admin_password_error_db';
+        }
+
+        session_regenerate_id(true);
+        return null;
+    } catch (PDOException $e) {
+        error_log('admin_change_password: ' . $e->getMessage());
+        return 'admin_password_error_db';
+    }
 }
 
 function admin_set_flash(string $type, string $message): void

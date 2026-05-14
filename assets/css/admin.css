@@ -189,6 +189,7 @@
 .admin-form input[type="text"],
 .admin-form input[type="url"],
 .admin-form input[type="number"],
+.admin-form input[type="password"],
 .admin-form textarea,
 .admin-form select {
     width: 100%;

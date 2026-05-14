@@ -41,6 +41,7 @@ $username = is_array($adminUser) ? ($adminUser['username'] ?? '') : '';
                 <a href="<?= htmlspecialchars(admin_url('index.php'), ENT_QUOTES, 'UTF-8') ?>">Projects</a>
                 <a href="<?= htmlspecialchars(admin_url('messages.php'), ENT_QUOTES, 'UTF-8') ?>">Messages</a>
                 <a href="<?= htmlspecialchars(admin_url('project-form.php'), ENT_QUOTES, 'UTF-8') ?>">New project</a>
+                <a href="<?= htmlspecialchars(admin_url('change-password.php'), ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars(__('admin_nav_password'), ENT_QUOTES, 'UTF-8') ?></a>
                 <a href="<?= htmlspecialchars($base !== '' ? $base . '/index.php' : '/index.php', ENT_QUOTES, 'UTF-8') ?>">Site</a>
             </nav>
             <div class="admin-bar__user">
